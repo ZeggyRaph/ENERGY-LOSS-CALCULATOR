@@ -1,4 +1,3 @@
-//'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'portrait.dart';
 import 'landscape.dart';
@@ -6,14 +5,28 @@ import 'package:flutter/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // final double screenHeight =
+  //MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+  //if (screenHeight < 360) {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  // } else {
+  // SystemChrome.setPreferredOrientations([
+  //  DeviceOrientation.portraitUp,
+  // DeviceOrientation.portraitDown,
+  //  DeviceOrientation.landscapeLeft,
+  //   DeviceOrientation.landscapeRight
+  //]);
+  // }
   runApp(EnergylossCalculator());
 }
 
 class EnergylossCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
     return MaterialApp(
       //USING THE MATERIALAPP THEME PROPS.
       theme: ThemeData.dark().copyWith(

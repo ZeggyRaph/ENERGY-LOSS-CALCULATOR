@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.loss_of_revenue_calculator">
    <application
-        android:label="loss_of_revenue_calculator"
+        android:label="energy_loss_calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
