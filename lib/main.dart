@@ -28,6 +28,9 @@ class EnergylossCalculator extends StatelessWidget {
     //double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
     return MaterialApp(
+      //TO REMOVE THE DEBUG BANNER
+      debugShowCheckedModeBanner: false,
+
       //USING THE MATERIALAPP THEME PROPS.
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Color(0xFF0A0E21),
@@ -42,8 +45,6 @@ class EnergylossCalculator extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
-
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -73,7 +74,9 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
         ),
-        body: OrientationBuilder(
+        body:
+            //THIS CHECKS THE ORIENTATION AND RENDERS ACCORDINGLY
+            OrientationBuilder(
           builder: (context, orientation) {
             if (MediaQuery.of(context).orientation == Orientation.landscape) {
               return LandscapeView();
