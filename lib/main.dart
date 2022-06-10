@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'portrait.dart';
 import 'landscape.dart';
 import 'package:flutter/services.dart';
+import 'palette.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,24 +24,52 @@ void main() {
 }
 
 class EnergylossCalculator extends StatelessWidget {
+// Using "static" so that we can easily access it later
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.light);
+
   @override
   Widget build(BuildContext context) {
     //double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
-    return MaterialApp(
-      //TO REMOVE THE DEBUG BANNER
-      debugShowCheckedModeBanner: false,
+    return ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return MaterialApp(
+            //TO REMOVE THE DEBUG BANNER
+            debugShowCheckedModeBanner: false,
 
-      //USING THE MATERIALAPP THEME PROPS.
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color(0xFF0A0E21),
-        appBarTheme: AppBarTheme(
-          // primaryColor: Color(0xFF0A0E21),
-          backgroundColor: Color(0xFF0A0E21),
-        ),
-      ),
-      home: MainPage(),
-    );
+            //USING THE MATERIALAPP THEME PROPS.
+            /* theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: Color(0xFF0A0E21),
+              appBarTheme: AppBarTheme(
+                // primaryColor: Color(0xFF0A0E21),
+                backgroundColor: Color(0xFF0A0E21),
+              ),
+            ),*/
+            theme: ThemeData(
+              //scaffoldBackgroundColor: Colors.blue,
+              // accentColor: Colors.red,
+              // brightness: Brightness.dark,
+              // primaryColor: Colors.teal
+
+              //For light mode appbar color
+              primarySwatch: Palette.myColor,
+            ),
+            darkTheme: ThemeData.dark().copyWith(
+              //For darkmode scaffold color
+              scaffoldBackgroundColor: Color(0xFF0A0E21),
+
+              //For darkmode appBar color
+              appBarTheme: AppBarTheme(
+                backgroundColor: Color(0xFF0A0E21),
+              ),
+            ),
+            themeMode: currentMode,
+
+            home: MainPage(),
+          );
+        });
   }
 }
 
@@ -64,6 +93,20 @@ class _MainPageState extends State<MainPage> {
         resizeToAvoidBottomInset: false,
         // CENTERING AND STYLING THE APPBAR
         appBar: AppBar(
+          actions: [
+            IconButton(
+                icon: Icon(
+                    EnergylossCalculator.themeNotifier.value == ThemeMode.light
+                        ? Icons.dark_mode
+                        : Icons.light_mode),
+                onPressed: () {
+                  EnergylossCalculator.themeNotifier.value =
+                      EnergylossCalculator.themeNotifier.value ==
+                              ThemeMode.light
+                          ? ThemeMode.dark
+                          : ThemeMode.light;
+                })
+          ],
           title: Center(
             child: Text(
               'ENERGY LOSS CALCULATOR',

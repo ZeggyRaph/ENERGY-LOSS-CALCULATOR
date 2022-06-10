@@ -52,7 +52,7 @@ class _LandscapeViewState extends State<LandscapeView> {
                       'To make the keyboard disappear, Tap anywhere outside the input fields.',
                       style: TextStyle(
                         fontSize: 10.0,
-                        color: Colors.white,
+                        color: Color(0xFFA5672B),
                       ),
                     ),
                   ],
