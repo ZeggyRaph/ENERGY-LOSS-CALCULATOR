@@ -11,6 +11,8 @@ const resultTextStyle = TextStyle(
 );
 
 class PortraitView extends StatefulWidget {
+  const PortraitView({Key? key}) : super(key: key);
+
   @override
   State<PortraitView> createState() => _PortraitViewState();
 }
@@ -22,21 +24,24 @@ class _PortraitViewState extends State<PortraitView> {
   TextEditingController availabilityController = TextEditingController();
   TextEditingController tariffController = TextEditingController();
   TextEditingController noOfMonthsController = TextEditingController();
+  TextEditingController meterType = TextEditingController();
   String lorResult = '0';
   String energyResult = '0';
   String powerResult = '0';
+  String admResult = '0';
+  String totalResult = '0';
   final vat = 1.075;
   final pf = 0.85;
   final kilo = 1000;
   final df = 0.6;
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    print(height);
+    // double width = MediaQuery.of(context).size.width;
+    //double height = MediaQuery.of(context).size.height;
 
     return Container(
-      margin: EdgeInsets.all(10.0),
+      margin: const EdgeInsets.all(10.0),
       child:
           //EVERYTHING IS ARRANGED IN A COLUMN
           Column(
@@ -46,7 +51,7 @@ class _PortraitViewState extends State<PortraitView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
                 child: Text(
                   'VOLT(V):',
@@ -65,12 +70,12 @@ class _PortraitViewState extends State<PortraitView> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
                 child: Text(
                   'CURR(A):',
@@ -89,12 +94,12 @@ class _PortraitViewState extends State<PortraitView> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
                 child: Text(
                   'AVAIL(Hrs):',
@@ -113,12 +118,12 @@ class _PortraitViewState extends State<PortraitView> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
                 child: Text(
                   'TAR(#):',
@@ -137,12 +142,36 @@ class _PortraitViewState extends State<PortraitView> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Row(
             children: [
+              const Expanded(
+                flex: 1,
+                child: Text(
+                  'MeterType:',
+                  style: textStyle,
+                ),
+              ),
               Expanded(
+                flex: 2,
+                child:
+                    //ANOTHER TEXTFIELD
+                    ReusableTextField(
+                  kontroller: meterType,
+                  labText: 'No. of phase',
+                  hintTex: 'Enter 1 or 3',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Row(
+            children: [
+              const Expanded(
                 flex: 1,
                 child: Text(
                   'DURATION:',
@@ -161,7 +190,7 @@ class _PortraitViewState extends State<PortraitView> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Row(
@@ -171,13 +200,33 @@ class _PortraitViewState extends State<PortraitView> {
                 //ELEVATEDBUTTON FOR  ADDITION
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFA5672B),
+                    primary: const Color(0xFFA5672B),
                   ),
-                  child: Text(
+                  child: const Text(
                     'CALCULATE',
                     style: TextStyle(fontSize: 20.0),
                   ),
                   onPressed: () {
+                    const singlephasePen = 50000;
+                    const threePhasePen = 100000;
+                    const singlephaseAdm = 1500;
+                    const threePhaseAdm = 3000;
+
+                    int? admInput;
+                    int? penInput;
+
+                    if (double.parse(meterType.text) == 1) {
+                      admInput = singlephaseAdm;
+                    } else {
+                      admInput = threePhaseAdm;
+                    }
+
+                    if (double.parse(meterType.text) == 1) {
+                      penInput = singlephasePen;
+                    } else {
+                      penInput = threePhasePen;
+                    }
+
                     setState(() {
                       //THIS ENSURES THAT WHEN THE "CALCULATE BUTTON" IS CLICKED, THE SOFT KEYBOARD DISAPPEAR
                       FocusManager.instance.primaryFocus?.unfocus();
@@ -199,16 +248,29 @@ class _PortraitViewState extends State<PortraitView> {
                       powerResult = power.toStringAsFixed(2);
                       energyResult = energy.toStringAsFixed(2);
                       lorResult = lor.toStringAsFixed(2);
+
+                      //TO CALCULATE ADM CHARGE
+                      //int admCharge = adm();
+                      admResult = admInput.toString();
+
+                      //TO CALCULATE PENALTY
+                      //int? penCharge = pen();
+
+                      //TO CALCULATE THE TOTAL
+                      double total =
+                          lor + admInput!.toDouble() + penInput!.toDouble();
+
+                      totalResult = total.toStringAsFixed(2);
                     });
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
 
               //THE SIZEDBOX CREATE SPACE BETWEEN THE BUTTONS
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Expanded(
@@ -216,14 +278,14 @@ class _PortraitViewState extends State<PortraitView> {
 
                     //TO CLEAR THE  INPUT FIELDS AND RESULTS
                     ElevatedButton(
-                  child: Text(
+                  child: const Text(
                     'RESET',
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFA5672B),
+                    primary: const Color(0xFFA5672B),
                   ),
                   onPressed: () {
                     setState(() {
@@ -233,16 +295,19 @@ class _PortraitViewState extends State<PortraitView> {
                       availabilityController.text = '';
                       tariffController.text = '';
                       noOfMonthsController.text = '';
+                      meterType.text = '';
                       powerResult = '0';
                       energyResult = '0';
                       lorResult = '0';
+                      admResult = '0';
+                      totalResult = '0';
                     });
                   },
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Expanded(
@@ -250,23 +315,23 @@ class _PortraitViewState extends State<PortraitView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //DISPLAYS THE WORD "POW" AS A STRING
-                Text(
+                const Text(
                   'POW:',
                   style: resultTextStyle,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10.0,
                 ),
 
                 //THE POWER RESULT IS DISPLAYED HERE
                 Text(
                   powerResult,
-                  style: TextStyle(fontSize: 20.0),
+                  style: const TextStyle(fontSize: 20.0),
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Expanded(
@@ -274,23 +339,23 @@ class _PortraitViewState extends State<PortraitView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //DISPLAYS THE WORD "ENE" AS A STRING
-                Text(
+                const Text(
                   'ENE:',
                   style: resultTextStyle,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10.0,
                 ),
 
                 //THE ENERGY RESULT IS DISPLAYED HERE
                 Text(
                   energyResult,
-                  style: TextStyle(fontSize: 20.0),
+                  style: const TextStyle(fontSize: 20.0),
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Expanded(
@@ -298,18 +363,60 @@ class _PortraitViewState extends State<PortraitView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //DISPLAYS THE WORD "LOR" AS A STRING
-                Text(
+                const Text(
                   'LOR:',
                   style: resultTextStyle,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10.0,
                 ),
 
                 //THE LOR RESULT IS DISPLAYED HERE
                 Text(
                   lorResult,
-                  style: TextStyle(fontSize: 20.0),
+                  style: const TextStyle(fontSize: 20.0),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //DISPLAYS THE WORD "LOR" AS A STRING
+                const Text(
+                  'ADM:',
+                  style: resultTextStyle,
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+
+                //THE LOR RESULT IS DISPLAYED HERE
+                Text(
+                  admResult,
+                  style: const TextStyle(fontSize: 20.0),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //DISPLAYS THE WORD "LOR" AS A STRING
+                const Text(
+                  'TOTAL:',
+                  style: resultTextStyle,
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+
+                //THE LOR RESULT IS DISPLAYED HERE
+                Text(
+                  totalResult,
+                  style: const TextStyle(fontSize: 20.0),
                 ),
               ],
             ),
@@ -320,9 +427,14 @@ class _PortraitViewState extends State<PortraitView> {
   }
 }
 
+// ignore: must_be_immutable
 class ReusableTextField extends StatelessWidget {
   ReusableTextField(
-      {required this.kontroller, required this.hintTex, required this.labText});
+      {Key? key,
+      required this.kontroller,
+      required this.hintTex,
+      required this.labText})
+      : super(key: key);
 
   final TextEditingController kontroller;
   String labText;
@@ -333,26 +445,26 @@ class ReusableTextField extends StatelessWidget {
     return TextField(
       keyboardType: TextInputType.number,
       controller: kontroller,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 14.0,
       ),
       minLines: 1,
       maxLines: 5,
       obscureText: false,
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(15.0),
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
+          contentPadding: const EdgeInsets.all(15.0),
+          border: const OutlineInputBorder(),
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFFA5672B),
             ),
           ),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFFA5672B),
             ),
           ),
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Color(0xFFA5672B),
           ),
           labelText: labText,
