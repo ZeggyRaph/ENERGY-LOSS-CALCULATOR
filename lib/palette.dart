@@ -18,3 +18,15 @@ class Palette {
     },
   );
 }
+
+//textfield text styling
+const textStyle = TextStyle(
+  fontSize: 16.0,
+  color: Color(0xFFA5672B),
+);
+
+//output text styling
+const resultTextStyle = TextStyle(
+  fontSize: 20.0,
+  color: Color(0xFFA5672B),
+);
