@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:loss_of_revenue_calculator/reusable_textfield.dart';
-
-const textStyle = TextStyle(
-  fontSize: 16.0,
-  color: Color(0xFFA5672B),
-);
-
-const resultTextStyle = TextStyle(
-  fontSize: 20.0,
-  color: Color(0xFFA5672B),
-);
+import 'package:loss_of_revenue_calculator/constants.dart';
 
 class PortraitView extends StatefulWidget {
   const PortraitView({Key? key}) : super(key: key);
@@ -247,12 +238,9 @@ class _PortraitViewState extends State<PortraitView> {
                   ),
                   const SizedBox(
                     width: 10.0,
-                  ),
-
-                  //THE SIZEDBOX CREATE SPACE BETWEEN THE BUTTONS
-                  const SizedBox(
                     height: 10.0,
                   ),
+
                   Expanded(
                     child:
 
