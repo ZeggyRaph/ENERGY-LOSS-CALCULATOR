@@ -121,13 +121,14 @@ class _MainPageState extends State<MainPage> {
             //THIS CHECKS THE ORIENTATION AND RENDERS ACCORDINGLY
             OrientationBuilder(
           builder: (context, orientation) {
-            if (MediaQuery.of(context).orientation == Orientation.landscape) {
-              return LandscapeView();
-            } else {
-              return PortraitView();
-            }
+              if (MediaQuery.of(context).orientation == Orientation.landscape) {
+                return LandscapeView();
+              } else {
+                return PortraitView();
+              }
           },
-        )
+        ),
+
         //PortraitView(),
         //PUTTING EVERTHING INSIDE A CONTAINING SO AS TO HAVE SOME MARGIN & PADDING PROPS.
         );
