@@ -1,77 +1,72 @@
 import 'package:flutter/material.dart';
-import 'portrait.dart';
+import 'package:loss_of_revenue_calculator/screens/negative_kwh.dart';
+import 'screens/portrait.dart';
 import 'landscape.dart';
 import 'package:flutter/services.dart';
 import 'palette.dart';
+import 'package:loss_of_revenue_calculator/screens/loss_of_revenue.dart';
+import 'package:loss_of_revenue_calculator/screens/power_to_current_screen.dart';
+import 'package:loss_of_revenue_calculator/screens/welcome_screen.dart';
+import 'package:loss_of_revenue_calculator/screens/calculator_screen.dart';
+import 'package:loss_of_revenue_calculator/screens/amp_to_kw_Kwh_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // final double screenHeight =
-  //MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-  //if (screenHeight < 360) {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  // } else {
-  // SystemChrome.setPreferredOrientations([
-  //  DeviceOrientation.portraitUp,
-  // DeviceOrientation.portraitDown,
-  //  DeviceOrientation.landscapeLeft,
-  //   DeviceOrientation.landscapeRight
-  //]);
-  // }
   runApp(EnergylossCalculator());
 }
+
+
 
 class EnergylossCalculator extends StatelessWidget {
 // Using "static" so that we can easily access it later
   static final ValueNotifier<ThemeMode> themeNotifier =
-      ValueNotifier(ThemeMode.light);
+  ValueNotifier(ThemeMode.dark);
+
+  const EnergylossCalculator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
           return MaterialApp(
-            //TO REMOVE THE DEBUG BANNER
-            debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
 
-            //USING THE MATERIALAPP THEME PROPS.
-            /* theme: ThemeData.dark().copyWith(
-              scaffoldBackgroundColor: Color(0xFF0A0E21),
-              appBarTheme: AppBarTheme(
-                // primaryColor: Color(0xFF0A0E21),
-                backgroundColor: Color(0xFF0A0E21),
+                primarySwatch: Palette.myColor,
               ),
-            ),*/
-            theme: ThemeData(
-              //scaffoldBackgroundColor: Colors.blue,
-              // accentColor: Colors.red,
-              // brightness: Brightness.dark,
-              // primaryColor: Colors.teal
+              darkTheme: ThemeData.dark().copyWith(
+                //For darkmode scaffold color
+                scaffoldBackgroundColor: const Color(0xFF0A0E21),
 
-              //For light mode appbar color
-              primarySwatch: Palette.myColor,
-            ),
-            darkTheme: ThemeData.dark().copyWith(
-              //For darkmode scaffold color
-              scaffoldBackgroundColor: Color(0xFF0A0E21),
-
-              //For darkmode appBar color
-              appBarTheme: AppBarTheme(
-                backgroundColor: Color(0xFF0A0E21),
+                //For dark mode appBar color
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: Color(0xFF0A0E21),
+                ),
               ),
-            ),
-            themeMode: currentMode,
+              themeMode: currentMode,
 
-            home: MainPage(),
-          );
-        });
-  }
-}
+
+
+              initialRoute: '/',
+              routes: {
+                '/': (context) => MainPage(),
+                '/second': (context) => const PortraitView(),
+                '/third': (context) => const PowerToCurrentScreen(),
+                '/fourth': (context) => const Energy(),
+                '/fifth': (context) => const LorCharge(),
+                '/sixth': (context) => const NegativeKwh(),
+                '/seventh': (context) => const CalculatorScreen(),
+
+              });
+        });}}
+
+
+
+
 
 class MainPage extends StatefulWidget {
   @override
@@ -81,10 +76,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    // final data = MediaQuery.of(context);
-    // Size size = MediaQuery.of(context).size;
-    // Orientation orientation = MediaQuery.of(context).orientation;
-    // double boxSide = size.shortestSide;
+
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     final isPortrait =
@@ -101,15 +93,15 @@ class _MainPageState extends State<MainPage> {
                         : Icons.light_mode),
                 onPressed: () {
                   EnergylossCalculator.themeNotifier.value =
-                      EnergylossCalculator.themeNotifier.value ==
-                              ThemeMode.light
-                          ? ThemeMode.dark
-                          : ThemeMode.light;
+                  EnergylossCalculator.themeNotifier.value ==
+                      ThemeMode.light
+                      ? ThemeMode.dark
+                      : ThemeMode.light;
                 })
           ],
-          title: Center(
+          title: const Center(
             child: Text(
-              'ENERGY LOSS CALCULATOR',
+              'ENERGY CALCULATOR',
               style: TextStyle(
                 fontSize: 20.0,
                 color: Color(0xFFA5672B),
@@ -118,19 +110,20 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         body:
-            //THIS CHECKS THE ORIENTATION AND RENDERS ACCORDINGLY
-            OrientationBuilder(
+        //THIS CHECKS THE ORIENTATION AND RENDERS ACCORDINGLY
+        OrientationBuilder(
           builder: (context, orientation) {
-              if (MediaQuery.of(context).orientation == Orientation.landscape) {
-                return LandscapeView();
-              } else {
-                return PortraitView();
-              }
+            if (MediaQuery.of(context).orientation == Orientation.landscape) {
+              return const LandscapeView();
+            } else {
+              return const WelcomeScreen();
+            }
           },
-        ),
-
-        //PortraitView(),
-        //PUTTING EVERTHING INSIDE A CONTAINING SO AS TO HAVE SOME MARGIN & PADDING PROPS.
-        );
+        )
+    );
   }
 }
+
+
+
+

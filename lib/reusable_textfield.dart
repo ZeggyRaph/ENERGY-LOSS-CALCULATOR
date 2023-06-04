@@ -15,6 +15,8 @@ class ReusableTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+     // textAlignVertical: TextAlignVertical(y: -0.0),
+
       keyboardType: TextInputType.number,
       controller: kontroller,
       style: const TextStyle(
@@ -24,7 +26,11 @@ class ReusableTextField extends StatelessWidget {
       maxLines: 5,
       obscureText: false,
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          filled: true,
+
+         // contentPadding: const EdgeInsets.only(left: 200, right: 0, top: 0,bottom: 0),
+          //contentPadding: EdgeInsets.only(bottom: 0.0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(32.0)),
           ),
@@ -35,7 +41,8 @@ class ReusableTextField extends StatelessWidget {
           ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-                color: Color(0xFFA5672B), width: 1.0
+                color: Color(0xFFA5672B),
+                //width: 1.0
             ),
             borderRadius: BorderRadius.all(Radius.circular(32.0)),
           ),
