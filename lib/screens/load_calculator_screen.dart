@@ -15,12 +15,7 @@ class LoadCalculatorScreen extends StatefulWidget {
 
 class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
   final meterModel = MeterCalculationModel();
-  TextEditingController availabilityController = TextEditingController();
-  TextEditingController tariffController = TextEditingController();
-  TextEditingController diversityController = TextEditingController();
-  TextEditingController noOfMonthController = TextEditingController();
 
-  TextEditingController wattageController = TextEditingController();
 
   List<Appliance> appliances = [
     Appliance(name: "Air conditioner 1hp", quantity: 1, wattage: 1350),
@@ -105,23 +100,13 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
 
   @override
   void initState() {
-    availabilityController = TextEditingController();
-    tariffController = TextEditingController();
-    availabilityController = TextEditingController();
-    diversityController = TextEditingController();
-    noOfMonthController = TextEditingController();
-    wattageController = TextEditingController();
+    meterModel.initState();
     super.initState();
   }
 
   @override
   void dispose() {
-    availabilityController.dispose();
-    tariffController.dispose();
-    diversityController.dispose();
-    noOfMonthController.dispose();
-    wattageController.dispose();
-    // TODO: implement dispose
+    meterModel.dispose();
     super.dispose();
   }
 
@@ -302,30 +287,30 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                             TextField(
                               decoration: const InputDecoration(labelText: "Power Availability (Hrs/Month)"),
                               keyboardType: TextInputType.number,
-                              controller: availabilityController,
+                              controller: meterModel.availabilityController,
                             ),
                             TextField(
                               decoration: const InputDecoration(labelText: "Tariff (per kWh)"),
                               keyboardType: TextInputType.number,
-                              controller: tariffController,
+                              controller: meterModel.tariffController,
                             ),
                             TextField(
                               decoration: const InputDecoration(labelText: "Diversity Factor"),
                               keyboardType: TextInputType.number,
-                              controller: diversityController,
+                              controller: meterModel.diversityController,
                             ),
                             TextField(
                               decoration: const InputDecoration(labelText: "Duration (Month)"),
                               keyboardType: TextInputType.number,
-                              controller: noOfMonthController,
+                              controller: meterModel.noOfMonthsController,
                             ),
                             const SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: () {
-                                if (availabilityController.text.isEmpty ||
-                                    tariffController.text.isEmpty ||
-                                    diversityController.text.isEmpty ||
-                                    noOfMonthController.text.isEmpty) {
+                                if (meterModel.availabilityController.text.isEmpty ||
+                                    meterModel.tariffController.text.isEmpty ||
+                                    meterModel.diversityController.text.isEmpty ||
+                                    meterModel.noOfMonthsController.text.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text("All fields must be filled!")),
                                   );
@@ -333,10 +318,10 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                 }
 
                                 try {
-                                  var avail = double.parse(availabilityController.text);
-                                  var tariff = double.parse(tariffController.text);
-                                  var diversity = double.parse(diversityController.text);
-                                  var month = double.parse(noOfMonthController.text);
+                                  var avail = double.parse(meterModel.availabilityController.text);
+                                  var tariff = double.parse(meterModel.tariffController.text);
+                                  var diversity = double.parse(meterModel.diversityController.text);
+                                  var month = double.parse(meterModel.noOfMonthsController.text);
 
                                   if (avail <= 0 || tariff <= 0 || diversity <= 0 || month <= 0) {
                                     ScaffoldMessenger.of(context).showSnackBar(

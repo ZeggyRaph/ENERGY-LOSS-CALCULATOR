@@ -9,6 +9,10 @@ class MeterCalculationModel {
   TextEditingController noOfMonthsController = TextEditingController();
   TextEditingController meterTypeController = TextEditingController();
   TextEditingController negativeKwhController = TextEditingController();
+  TextEditingController diversityController = TextEditingController();
+  TextEditingController wattageController = TextEditingController();
+
+
 
   // Variables to store results
   String lorResult = '0';
@@ -161,6 +165,9 @@ class MeterCalculationModel {
     meterTypeController = TextEditingController();
     noOfMonthsController = TextEditingController();
     negativeKwhController = TextEditingController();
+    diversityController = TextEditingController();
+    wattageController = TextEditingController();
+
   }
 
   // Dispose controllers to prevent memory leaks
@@ -172,5 +179,8 @@ class MeterCalculationModel {
     noOfMonthsController.dispose();
     meterTypeController.dispose();
     negativeKwhController.dispose();
+     diversityController.dispose();
+    wattageController.dispose();
+
   }
 }
