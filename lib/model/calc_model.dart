@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'appliance.dart';
+
 class MeterCalculationModel {
   // TextEditingControllers for user input
   TextEditingController currentController = TextEditingController();
@@ -12,7 +14,7 @@ class MeterCalculationModel {
   TextEditingController diversityController = TextEditingController();
   TextEditingController wattageController = TextEditingController();
 
-
+  double totalWattage = 0;
 
   // Variables to store results
   String lorResult = '0';
@@ -140,6 +142,13 @@ class MeterCalculationModel {
     totalResult = total.toStringAsFixed(2);
   }
 
+  void calculateTotalWattage() {
+
+    totalWattage = appliances
+        .where((appliance) => appliance.selected)
+        .fold(0, (sum, appliance) => sum + (appliance.wattage! * appliance.quantity!));
+  }
+
   // Function to reset all fields and results
   void reset() {
     voltageController.clear();
@@ -183,4 +192,13 @@ class MeterCalculationModel {
     wattageController.dispose();
 
   }
+
+  void energyCost(){
+
+
+
+  }
+
+
+
 }

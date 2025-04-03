@@ -17,86 +17,12 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
   final meterModel = MeterCalculationModel();
 
 
-  List<Appliance> appliances = [
-    Appliance(name: "Air conditioner 1hp", quantity: 1, wattage: 1350),
-    Appliance(name: "Air conditioner 1.5hp", quantity: 1, wattage: 1500),
-    Appliance(name: "Air conditioner 2hp", quantity: 1, wattage: 1865),
-    Appliance(name: "AM/FM auto cassette player", quantity: 1, wattage: 8),
-    Appliance(name: "Battery car charge", quantity: 1, wattage: 150),
-    Appliance(name: "blender", quantity: 1, wattage: 300),
-    Appliance(name: "Boiling Ring", quantity: 1, wattage: 1500),
-    Appliance(name: "Boiling Ring", quantity: 1, wattage: 2500),
-    Appliance(name: "Ceiling fan", quantity: 1, wattage: 80),
-    Appliance(name: "Clock", quantity: 1, wattage: 3),
-    Appliance(name: "Clothes Dryer", quantity: 1, wattage: 4000),
-    Appliance(name: "Coffee maker", quantity: 1, wattage: 1165),
-    Appliance(name: "Coffee maker", quantity: 1, wattage: 1165),
-    Appliance(name: "Computer monitor and printer", quantity: 1, wattage: 365),
-    Appliance(name: "Convection oven", quantity: 1, wattage: 1500),
-    Appliance(name: "Dishwasher Appliances(Dry cycle) ", quantity: 1, wattage: 1200),
-    Appliance(name: "Dishwasher Appliances(Dry cycle) ", quantity: 1, wattage: 1500),
-    Appliance(name: "Standing Fan", quantity: 1, wattage: 80),
-    Appliance(name: "Electric heat Appliances(Base boar furnace)", quantity: 1, wattage: 300),
-    Appliance(name: "Electric heat Appliances(Base boar furnace)", quantity: 1, wattage: 400),
-    Appliance(name: "Electric heat Appliances(Base boar furnace)", quantity: 1, wattage: 1000),
-    Appliance(name: "Electric kettle", quantity: 1, wattage: 1000),
-    Appliance(name: "Electric kettle", quantity: 1, wattage: 1500),
-    Appliance(name: "Electric cooker with oven", quantity: 1, wattage: 1000),
-    Appliance(name: "Electric mower", quantity: 1, wattage: 1500),
-    Appliance(name: "Frying plate", quantity: 1, wattage: 1200),
-    Appliance(name: "Frying plate", quantity: 1, wattage: 1500),
-    Appliance(name: "Freezer", quantity: 1, wattage: 500),
-    Appliance(name: "Hot plate/Boiling Ring", quantity: 1, wattage: 1200),
-    Appliance(name: "Hot plate/Boiling Ring", quantity: 1, wattage: 1500),
-    Appliance(name: "Iron", quantity: 1, wattage: 1000),
-    Appliance(name: "Iron", quantity: 1, wattage: 1500),
-    Appliance(name: "Iron", quantity: 1, wattage: 2500),
-    Appliance(name: "Jacuzzi(Maintain Temperature, 2persons", quantity: 1, wattage: 1500),
-    Appliance(name: "Light:100watt incandescent", quantity: 1, wattage: 100),
-    Appliance(name: "Light:25watt compact Fluorescent", quantity: 1, wattage: 28),
-    Appliance(name: "Light:50watt DC incandescent", quantity: 1, wattage: 50),
-    Appliance(name: "Light:40watt DC Halogen", quantity: 1, wattage: 40),
-    Appliance(name: "Light:20watt compact Fluorescent", quantity: 1, wattage: 20),
-    Appliance(name: "Laptop", quantity: 1, wattage: 65),
-    Appliance(name: "Laptop", quantity: 1, wattage: 75),
-    Appliance(name: "Microwave", quantity: 1, wattage: 1450),
-    Appliance(name: "Phone charger", quantity: 1, wattage: 2),
-    Appliance(name: "Phone charger", quantity: 1, wattage: 4),
-    Appliance(name: "Phone charger", quantity: 1, wattage: 5),
-    Appliance(name: "Phone charger", quantity: 1, wattage: 6),
-    Appliance(name: "Popcorn popper", quantity: 1, wattage: 250),
-    Appliance(name: "Pool filter motor", quantity: 1, wattage: 1500),
-    Appliance(name: "Radio", quantity: 1, wattage: 110),
-    Appliance(name: "Refrigerator", quantity: 1, wattage: 800),
-    Appliance(name: "Television-25\" colour", quantity: 1, wattage: 150),
-    Appliance(name: "Television-19\" colour", quantity: 1, wattage: 120),
-    Appliance(name: "Toaster", quantity: 1, wattage: 800),
-    Appliance(name: "Toaster", quantity: 1, wattage: 1200),
-    Appliance(name: "Toaster", quantity: 1, wattage: 1500),
-    Appliance(name: "Sewing", quantity: 1, wattage: 1000),
-    Appliance(name: "Sewing machine", quantity: 1, wattage: 1000),
-    Appliance(name: "Sink Waste Disposal", quantity: 1, wattage: 750),
-    Appliance(name: "VCD Player", quantity: 1, wattage: 25),
-    Appliance(name: "Vacuum cleaner - High Power", quantity: 1, wattage: 2000),
-    Appliance(name: "Vacuum cleaner - Upright", quantity: 1, wattage: 500),
-    Appliance(name: "Vacuum cleaner - Upright", quantity: 1, wattage: 700),
-    Appliance(name: "Vacuum cleaner - Handheld", quantity: 1, wattage: 600),
-    Appliance(name: "Washing Machine (Front Load/Top Load, with Spin Dry) ", quantity: 1, wattage: 1500),
-    Appliance(name: "Water Heater (Electric Storage Heater - 15L to 50L) ", quantity: 1, wattage: 2000),
-    Appliance(name: "Pumping Machine (0.5 HP - 1 HP)", quantity: 1, wattage: 1100),
-
-
-  ];
+  //List<Appliance> appliances = [];
 
   var energyCost = 0.0;
 
-  double totalWattage = 0;
-  void calculateTotalWattage() {
 
-    totalWattage = appliances
-        .where((appliance) => appliance.selected)
-        .fold(0, (sum, appliance) => sum + (appliance.wattage! * appliance.quantity!));
-  }
+
 
   @override
   void initState() {
@@ -120,12 +46,15 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
         int quantity = 1;
         double wattage = 100;
         return AlertDialog(
-          title: const Text("Add New Appliance"),
+          title: const Text("Add New Appliance",style: TextStyle(
+            fontSize: 14.0,
+            color: Color(0xFFA5672B),
+          ),),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: const InputDecoration(labelText: "Appliance Name"),
+                decoration: const InputDecoration(labelText: "Appliance Name",),
                 onChanged: (value) => name = value,
               ),
               TextField(
@@ -143,7 +72,10 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Cancel"),
+              child: const Text("Cancel",style: TextStyle(
+                fontSize: 14.0,
+                color: Color(0xFFA5672B),
+              ),),
             ),
             ElevatedButton(
               onPressed: () {
@@ -154,7 +86,10 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                   Navigator.pop(context);
                 }
               },
-              child: const Text("Add"),
+              child: const Text("Add",style: TextStyle(
+                fontSize: 14.0,
+                color: Color(0xFFA5672B),
+              ),),
             ),
           ],
         );
@@ -163,34 +98,62 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
   }
 
 
-  void editApplianceQuantity(int index) {
+  void editApplianceQuantity( index) {
     int newQuantity = appliances[index].quantity!;
+    double newWattage = appliances[index].wattage!;
+
+
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Edit ${appliances[index].name} Quantity"),
-          content: TextField(
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: "Enter new quantity"),
-            onChanged: (value) {
-              newQuantity = int.tryParse(value) ?? appliances[index].quantity!;
-            },
+          title: Text("Edit ${appliances[index].name} Wattage and Quantity",style: const TextStyle(
+            fontSize: 14.0,
+            color: Color(0xFFA5672B),
+          ),),
+          content: SizedBox(
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: "Enter new wattage"),
+                  onChanged: (value) {
+                    newWattage = double.tryParse(value) ?? appliances[index].wattage!;
+                  },
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: "Enter new quantity"),
+                  onChanged: (value) {
+                    newQuantity = int.tryParse(value) ?? appliances[index].quantity!;
+                  },
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Cancel"),
+              child: const Text("Cancel",style: TextStyle(
+                fontSize: 14.0,
+                color: Color(0xFFA5672B),
+              ),),
             ),
             ElevatedButton(
               onPressed: () {
                 setState(() {
                   appliances[index].quantity = newQuantity;
+                  appliances[index].wattage = newWattage;
                 });
                 Navigator.pop(context);
               },
-              child: const Text("Save"),
+              child: const Text("Save",style: TextStyle(
+                fontSize: 14.0,
+                color: Color(0xFFA5672B),
+              ),),
             ),
           ],
         );
@@ -203,20 +166,28 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    calculateTotalWattage(); // Update total wattage dynamically
+    meterModel.calculateTotalWattage(); // Update total wattage dynamically
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Load Assessment",
+        title: const Text("Load Calculator",
         style: TextStyle(
         fontSize: 20.0,
         color: Color(0xFFA5672B),
     ),),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: addAppliance,
-          ),
+
+         InkWell(
+           child: const Padding(
+           padding: EdgeInsets.all(8.0),
+           child: Text('Add new', style: TextStyle(
+             fontSize: 14.0,
+             color: Color(0xFFA5672B),
+           ),),
+         ),
+           onTap: addAppliance,
+
+         ),
         ],
       ),
       body:
@@ -242,7 +213,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                       itemCount: appliances.length,
                       itemBuilder: (context, index) {
                         final appliance = appliances[index];
-                        return Card(
+                        return Card(color: const Color(0xFFA5672B,),
                           child: ListTile(
                             leading: Checkbox(
                               value: appliance.selected,
@@ -267,12 +238,21 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                   ),
 
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5,
+                      shadowColor: Colors.black,
+
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)),
+                      ),
+                      backgroundColor: const Color(0xFFA5672B),),
                     onPressed: () {
                       setState(() {
                         showInputs = !showInputs;
                       });
                     },
-                    child: Text(showInputs ? "Hide Inputs" : "Show Inputs"),
+                    child: Text(showInputs ? "Hide Inputs" : "Show Inputs",
+                      style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                   ),
 
                   Visibility(
@@ -280,12 +260,12 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        height: 200, // Adjust height to fit within available space
+                        height: 300, // Adjust height to fit within available space
                         child: ListView(
                           shrinkWrap: true,
                           children: [
                             TextField(
-                              decoration: const InputDecoration(labelText: "Power Availability (Hrs/Month)"),
+                              decoration:  const InputDecoration(labelText: "Power Availability (Hrs/Month)", ),
                               keyboardType: TextInputType.number,
                               controller: meterModel.availabilityController,
                             ),
@@ -295,7 +275,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                               controller: meterModel.tariffController,
                             ),
                             TextField(
-                              decoration: const InputDecoration(labelText: "Diversity Factor"),
+                              decoration: const InputDecoration(labelText: "Diversity Factor(not less than 0.6)"),
                               keyboardType: TextInputType.number,
                               controller: meterModel.diversityController,
                             ),
@@ -306,8 +286,11 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                             ),
                             const SizedBox(height: 10),
                             ElevatedButton(
+
                               onPressed: () {
-                                if (meterModel.availabilityController.text.isEmpty ||
+
+                                if
+                                (meterModel.availabilityController.text.isEmpty ||
                                     meterModel.tariffController.text.isEmpty ||
                                     meterModel.diversityController.text.isEmpty ||
                                     meterModel.noOfMonthsController.text.isEmpty) {
@@ -331,7 +314,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                   }
 
                                   setState(() {
-                                    energyCost = (totalWattage / 1000) *
+                                    energyCost = (meterModel.totalWattage / 1000) *
                                         avail *
                                         tariff *
                                         diversity *
@@ -344,16 +327,25 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                   );
                                 }
                               },
-                              child: const Text("Calculate"),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 5,
+                                shadowColor: Colors.black,
+
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                backgroundColor: const Color(0xFFA5672B),),
+                              child: const Text("Calculate",
+                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                             ),
 
                             const SizedBox(height: 10),
                             Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(16),
-                              color: Colors.blue.shade700,
+                              color:const Color(0xFFA5672B,),
                               child: Text(
-                                "Total Wattage: ${totalWattage.toStringAsFixed(2)} W",
+                                "Total Wattage: ${meterModel.totalWattage.toStringAsFixed(2)} W",
                                 style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -361,7 +353,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                             Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(16),
-                              color: Colors.blue.shade700,
+                              color:const Color(0xFFA5672B,),
                               child: Text(
                                 "Energy Cost: #${energyCost.toStringAsFixed(2)}",
                                 style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),

@@ -19,8 +19,9 @@ class ResultCard extends StatelessWidget {
       return Card(
       shape: RoundedRectangleBorder(
         borderRadius:BorderRadius.circular(30.0),
-          side: const BorderSide(
-            color: Colors.black, width: 2.0, style: BorderStyle.solid)),
+          // side: const BorderSide(
+          //   color: Colors.black, width: 2.0, style: BorderStyle.solid)
+      ),
         color: const Color(0xFFA5672B),
         margin: const EdgeInsets.all(15),
         child: Padding(
@@ -49,8 +50,9 @@ class ResultCard extends StatelessWidget {
       return Card(
         shape:  RoundedRectangleBorder(
             borderRadius:BorderRadius.circular(30.0),
-            side: const BorderSide(
-            color: Colors.white, width: 2.0, style: BorderStyle.solid)),
+            // side: const BorderSide(
+            // color: Colors.white, width: 2.0, style: BorderStyle.solid)
+        ),
         color: const Color(0xFFA5672B),
         margin: const EdgeInsets.all(15),
         child: Padding(

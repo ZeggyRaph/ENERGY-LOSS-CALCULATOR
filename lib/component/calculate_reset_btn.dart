@@ -19,7 +19,7 @@ class CalcResetBttn extends StatelessWidget {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 5,
-          shadowColor: Colors.black,
+         // shadowColor: Colors.black,
 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
@@ -39,7 +39,7 @@ class CalcResetBttn extends StatelessWidget {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 10,
-          shadowColor: Colors.white,
+         // shadowColor: Colors.white,
 
           shape: RoundedRectangleBorder(
 
