@@ -61,10 +61,6 @@ class _LorChargeState extends State<LorCharge> {
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        const Text(
-                          'VOLTAGE(V)',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.voltageController,
                                                     labText: 'Voltage',
@@ -72,10 +68,6 @@ class _LorChargeState extends State<LorCharge> {
                                                   ),
                         const SizedBox(
                           height: 10.0,
-                        ),
-                        const Text(
-                          'CURRENT(A)',
-                          style: textStyle,
                         ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.currentController,
@@ -85,10 +77,6 @@ class _LorChargeState extends State<LorCharge> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'AVAILABILITY(Hrs)',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.availabilityController,
                                                     hintTex: 'Enter availability',
@@ -96,10 +84,6 @@ class _LorChargeState extends State<LorCharge> {
                                                   ),
                         const SizedBox(
                           height: 10.0,
-                        ),
-                        const Text(
-                          'TARIFF(#)',
-                          style: textStyle,
                         ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.tariffController,
@@ -109,22 +93,15 @@ class _LorChargeState extends State<LorCharge> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'DIVERSITY Factor',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                           kontroller: energyCalculationModel.diversityController,
-                          labText: 'DF',
-                          hintTex: 'Enter a df value between 0.6 & 1',
+                          labText: 'Diversity Factor',
+                          hintTex: 'Enter a value between 0.6 & 1',
                         ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'METER-TYPE',
-                          style: textStyle,
-                        ),
+
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.meterTypeController,
                                                     labText: 'No. of phases',
@@ -133,10 +110,7 @@ class _LorChargeState extends State<LorCharge> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'DURATION',
-                          style: textStyle,
-                        ),
+
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.noOfMonthsController,
                                                     labText: 'Duration',

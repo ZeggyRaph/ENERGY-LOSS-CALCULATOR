@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../landscape.dart';
 import '../model/appliance.dart';
 import '../model/calc_model.dart';
+import '../palette.dart';
+import '../reusable_textfield.dart';
 
 class LoadCalculatorScreen extends StatefulWidget {
   static const String id = 'load_calculator_screen';
@@ -170,21 +172,20 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
       appBar: AppBar(
         title: const Text("Load Calculator",
         style: TextStyle(
-        fontSize: 20.0,
+        fontSize: 24.0,
         color: Color(0xFFA5672B),
     ),),
         actions: [
 
          InkWell(
-           child:  Padding(
-           padding: const EdgeInsets.all(8.0),
-           child: Text('Add new', style: TextStyle(
+           onTap: addAppliance,
+           child: Padding(
+             padding: const EdgeInsets.only(right: 15.0),
+             child: Text('Add new', style: TextStyle(
              fontSize: 14.0,
              color: isDarkMode ? Colors.white : const Color(0xFFA5672B),
-           ),),
-         ),
-           onTap: addAppliance,
-
+                          ),),
+           ),
          ),
         ],
       ),
@@ -206,46 +207,53 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
+
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: appliances.length,
                       itemBuilder: (context, index) {
                         final appliance = appliances[index];
-                        return Card(color: const Color(0xFFA5672B,),
-                          child: ListTile(
-                            leading: Checkbox(
-                              checkColor: isDarkMode ? Colors.brown : Colors.white, // Color of the check mark
-                              fillColor: MaterialStateProperty.resolveWith<Color>(
-                                    (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.selected)) {
-                                    return isDarkMode ? Colors.white : Colors.brown; // Filled color when checked
-                                  }
-                                  return isDarkMode ? Colors.brown : Colors.white; // Filled color when unchecked
-                                },
-                              ),
-                              value: appliance.selected,
-                              onChanged: (value) {
-                                setState(() {
-                                  appliance.selected = value!;
-                                });
-                              },
-                            ),
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Card(color: const Color(0xFFA5672B,),
+                              child: ListTile(
+                                leading: Checkbox(
+                                  checkColor: isDarkMode ? Colors.brown : Colors.white, // Color of the check mark
+                                  fillColor: MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return isDarkMode ? Colors.white : Colors.brown; // Filled color when checked
+                                      }
+                                      return isDarkMode ? Colors.brown : Colors.white; // Filled color when unchecked
+                                    },
+                                  ),
+                                  value: appliance.selected,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      appliance.selected = value!;
+                                    });
+                                  },
+                                ),
 
-                            title: Text(appliance.name!,style: TextStyle(color: isDarkMode ? Colors.white : Colors.white,),),
-                            subtitle: Text("Wattage: ${appliance.wattage} W | Quantity: ${appliance.quantity}"
-                              ,style: TextStyle(color: isDarkMode ? Colors.white : Colors.white,),),
-                            trailing: IconButton(
-                              icon:  Icon(Icons.edit,color: isDarkMode ? Colors.white : Colors.white,),
-                              onPressed: () {
-                                editApplianceQuantity(index);
-                              },
+                                title: Text(appliance.name!,style: TextStyle(color: isDarkMode ? Colors.white : Colors.white,fontSize: 18),),
+                                subtitle: Text("Wattage: ${appliance.wattage} W  Quantity: ${appliance.quantity}"
+                                  ,style: TextStyle(color: isDarkMode ? Colors.white : Colors.white,fontSize: 16),),
+                                trailing: IconButton(
+                                  icon:  Icon(Icons.edit,color: isDarkMode ? Colors.white : Colors.white,),
+                                  onPressed: () {
+                                    editApplianceQuantity(index);
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
+                            SizedBox(height: 5,)
+                          ],
                         );
                       },
+
                     ),
                   ),
-
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 5,
@@ -261,7 +269,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                       });
                     },
                     child: Text(showInputs ? "Hide Inputs" : "Show Inputs",
-                      style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                      style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
 
                   Visibility(
@@ -273,27 +281,40 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                         child: ListView(
                           shrinkWrap: true,
                           children: [
-                            TextField(
-                              decoration:  const InputDecoration(labelText: "Power Availability (Hrs/Month)", ),
-                              keyboardType: TextInputType.number,
-                              controller: energyCalculationModel.availabilityController,
+                            ReusableTextField(
+                              kontroller: energyCalculationModel.availabilityController,
+                              labText: 'Power Availability (Hrs/Month)',
+                              hintTex: 'Enter total hours of power in a month',
                             ),
-                            TextField(
-                              decoration: const InputDecoration(labelText: "Tariff (per kWh)"),
-                              keyboardType: TextInputType.number,
-                              controller: energyCalculationModel.tariffController,
+                            const SizedBox(
+                              height: 10.0,
                             ),
-                            TextField(
-                              decoration: const InputDecoration(labelText: "Diversity Factor(not less than 0.6)"),
-                              keyboardType: TextInputType.number,
-                              controller: energyCalculationModel.diversityController,
+                            ReusableTextField(
+                              kontroller: energyCalculationModel.tariffController,
+                              labText: 'Tariff (per kWh)',
+                              hintTex: 'Enter the tariff per kwh',
                             ),
-                            TextField(
-                              decoration: const InputDecoration(labelText: "Duration (Month)"),
-                              keyboardType: TextInputType.number,
-                              controller: energyCalculationModel.noOfMonthsController,
+                            const SizedBox(
+                              height: 10.0,
                             ),
-                            const SizedBox(height: 10),
+
+                            ReusableTextField(
+                              kontroller: energyCalculationModel.diversityController,
+                              labText: 'Diversity Factor(value between o.6 and 1)',
+                              hintTex: 'Enter a value between o.6 and 1',
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            ReusableTextField(
+                              kontroller: energyCalculationModel.noOfMonthsController,
+                              labText: 'Duration (Month)',
+                              hintTex: 'Enter the number of months',
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+
                             ElevatedButton(
 
                               onPressed: () {
@@ -345,7 +366,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                 ),
                                 backgroundColor: const Color(0xFFA5672B),),
                               child: const Text("Calculate",
-                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                             ),
 
                             const SizedBox(height: 10),
@@ -355,7 +376,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                               color:const Color(0xFFA5672B,),
                               child: Text(
                                 "Total Wattage: ${energyCalculationModel.totalWattage.toStringAsFixed(2)} W",
-                                style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -365,7 +386,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                               color:const Color(0xFFA5672B,),
                               child: Text(
                                 "Energy Cost: #${energyCost.toStringAsFixed(2)}",
-                                style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],

@@ -59,10 +59,6 @@ class _NegativeKwhState extends State<NegativeKwh> {
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        Text(
-                          'NEGATIVE VALUE(KWH)',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.negativeKwhController,
                                                     labText: 'negative_kwh',
@@ -71,10 +67,6 @@ class _NegativeKwhState extends State<NegativeKwh> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        Text(
-                          'TARIFF(#)',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.tariffController,
                                                     labText: 'Tariff',
@@ -82,10 +74,6 @@ class _NegativeKwhState extends State<NegativeKwh> {
                                                   ),
                         const SizedBox(
                           height: 10.0,
-                        ),
-                        Text(
-                          'METER-TYPE',
-                          style: textStyle,
                         ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.meterTypeController,

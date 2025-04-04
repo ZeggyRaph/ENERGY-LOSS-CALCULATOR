@@ -71,10 +71,6 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                     shrinkWrap: true,
                     physics: const AlwaysScrollableScrollPhysics(),
                     children: [
-                      const Text(
-                        'POWER(Watts)',
-                        style: textStyle,
-                      ),
                       ReusableTextField(
                         kontroller:  energyCalculationModel.powerController,
                         labText: 'power',
@@ -83,10 +79,7 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      const Text(
-                        'VOLTAGE(Volts)',
-                        style: textStyle,
-                      ),
+
                       ReusableTextField(
                         kontroller: energyCalculationModel.voltageController,
                         labText: 'Voltage',
@@ -100,8 +93,6 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-
-                            //ELEVATEDBUTTON FOR  ADDITION
                             child: CalcResetBttn(
                               btnText: 'CALCULATE',
                               onPressedbtn: (){
@@ -118,13 +109,16 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                             height: 10.0,
                           ),
 
-                          CalcResetBttn(
-                            btnText: 'RESET',
-                            onPressedbtn:  () {
-                              setState(() {
-                                energyCalculationModel.reset();
-                              });
-                            },),
+                          
+                          Expanded(
+                            child: CalcResetBttn(
+                              btnText: 'RESET',
+                              onPressedbtn:  () {
+                                setState(() {
+                                  energyCalculationModel.reset();
+                                });
+                              },),
+                          ),
                         ],
                       ),
                       const SizedBox(

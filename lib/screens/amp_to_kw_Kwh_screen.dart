@@ -48,13 +48,14 @@ class _EnergyState extends State<Energy> {
                     child: ListView(
                       physics: const BouncingScrollPhysics(),
                       children: [
-                        _buildLabel('VOLTAGE (V)'),
+                       // _buildLabel('VOLTAGE (V)'),
                         _buildTextField(
                           controller: energyCalculationModel.voltageController,
                           label: 'Voltage',
                           hint: 'Enter 240 for voltage value',
                         ),
-                        _buildLabel('CURRENT (A)'),
+
+                        SizedBox(height: 20,),
                         _buildTextField(
                           controller: energyCalculationModel.currentController,
                           label: 'Current',

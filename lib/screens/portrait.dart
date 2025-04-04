@@ -64,10 +64,6 @@ class _PortraitViewState extends State<PortraitView> {
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        const Text(
-                          'VOLTAGE(V)',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.voltageController,
                                                     labText: 'Voltage',
@@ -76,10 +72,7 @@ class _PortraitViewState extends State<PortraitView> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'CURRENT(A)',
-                          style: textStyle,
-                        ),
+
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.currentController,
                                                     labText: 'Current',
@@ -87,10 +80,6 @@ class _PortraitViewState extends State<PortraitView> {
                                                   ),
                         const SizedBox(
                           height: 10.0,
-                        ),
-                        const Text(
-                          'AVAILABILITY(Hrs)',
-                          style: textStyle,
                         ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.availabilityController,
@@ -100,10 +89,6 @@ class _PortraitViewState extends State<PortraitView> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'TARIFF(#)',
-                          style: textStyle,
-                        ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.tariffController,
                                                     labText: 'Tariff',
@@ -112,22 +97,16 @@ class _PortraitViewState extends State<PortraitView> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'Diversity Factor',
-                          style: textStyle,
-                        ),
+
                         ReusableTextField(
                           kontroller: energyCalculationModel.diversityController,
-                          labText: 'DF',
-                          hintTex: 'Enter a df value between 0.6 & 1',
+                          labText: 'Diversity Factor',
+                          hintTex: 'Enter a value between 0.6 & 1',
                         ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Text(
-                          'METER-TYPE',
-                          style: textStyle,
-                        ),
+
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.meterTypeController,
                                                     labText: 'No. of phases',
@@ -135,10 +114,6 @@ class _PortraitViewState extends State<PortraitView> {
                                                   ),
                         const SizedBox(
                           height: 10.0,
-                        ),
-                        const Text(
-                          'DURATION',
-                          style: textStyle,
                         ),
                         ReusableTextField(
                                                     kontroller: energyCalculationModel.noOfMonthsController,
