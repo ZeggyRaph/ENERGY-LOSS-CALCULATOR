@@ -17,17 +17,13 @@ class PortraitView extends StatefulWidget {
 }
 
 class _PortraitViewState extends State<PortraitView> {
-  final meterModel = MeterCalculationModel();
+  final energyCalculationModel = MeterCalculationModel();
 
-  @override
-  void initState() {
-    meterModel.initState();
-    super.initState();
-  }
+
 
   @override
   void dispose() {
-    meterModel.dispose();
+    energyCalculationModel.dispose();
     super.dispose();
   }
 
@@ -68,123 +64,87 @@ class _PortraitViewState extends State<PortraitView> {
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'VOLTAGE(V)',
-                            style: textStyle,
-                          ),
+                        const Text(
+                          'VOLTAGE(V)',
+                          style: textStyle,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //TEXT-FIELD PROPS. & STYLING
-                              ReusableTextField(
-                            kontroller: meterModel.voltageController,
-                            labText: 'Voltage',
-                            hintTex: 'Enter 240 for voltage value',
-                          ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.voltageController,
+                                                    labText: 'Voltage',
+                                                    hintTex: 'Enter 240 for voltage value',
+                                                  ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        const Text(
+                          'CURRENT(A)',
+                          style: textStyle,
+                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.currentController,
+                                                    labText: 'Current',
+                                                    hintTex: 'Enter current value',
+                                                  ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        const Text(
+                          'AVAILABILITY(Hrs)',
+                          style: textStyle,
+                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.availabilityController,
+                                                    hintTex: 'Enter availability',
+                                                    labText: 'Availability',
+                                                  ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        const Text(
+                          'TARIFF(#)',
+                          style: textStyle,
+                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.tariffController,
+                                                    labText: 'Tariff',
+                                                    hintTex: 'Enter tariff',
+                                                  ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        const Text(
+                          'Diversity Factor',
+                          style: textStyle,
+                        ),
+                        ReusableTextField(
+                          kontroller: energyCalculationModel.diversityController,
+                          labText: 'DF',
+                          hintTex: 'Enter a df value between 0.6 & 1',
                         ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'CURRENT(A)',
-                            style: textStyle,
-                          ),
+                        const Text(
+                          'METER-TYPE',
+                          style: textStyle,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.currentController,
-                            labText: 'Current',
-                            hintTex: 'Enter current value',
-                          ),
-                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.meterTypeController,
+                                                    labText: 'No. of phases',
+                                                    hintTex: 'Enter 1 or 3',
+                                                  ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'AVAILABILITY(Hrs)',
-                            style: textStyle,
-                          ),
+                        const Text(
+                          'DURATION',
+                          style: textStyle,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.availabilityController,
-                            hintTex: 'Enter availability',
-                            labText: 'Availability',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'TARIFF(#)',
-                            style: textStyle,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.tariffController,
-                            labText: 'Tariff',
-                            hintTex: 'Enter tariff',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'METER-TYPE',
-                            style: textStyle,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.meterTypeController,
-                            labText: 'No. of phases',
-                            hintTex: 'Enter 1 or 3',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'DURATION',
-                            style: textStyle,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.noOfMonthsController,
-                            labText: 'Duration',
-                            hintTex: 'Enter no. of months',
-                          ),
-                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.noOfMonthsController,
+                                                    labText: 'Duration',
+                                                    hintTex: 'Enter no. of months',
+                                                  ),
                         const SizedBox(
                           height: 10.0,
                         ),
@@ -200,7 +160,7 @@ class _PortraitViewState extends State<PortraitView> {
                                     // THE SOFT KEYBOARD DISAPPEARS
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus();
-                                    meterModel.calculate();
+                                    energyCalculationModel.calculate();
                                   });
                                 },
                               ),
@@ -217,7 +177,7 @@ class _PortraitViewState extends State<PortraitView> {
                               btnText: 'RESET',
                               onPressedbtn: () {
                                 setState(() {
-                                  meterModel.reset();
+                                  energyCalculationModel.reset();
                                 });
                               },
                             )),
@@ -226,33 +186,23 @@ class _PortraitViewState extends State<PortraitView> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                              resultLabel: 'POW:', resultAnswer: meterModel.powerResult),
+                        ResultCard(
+                            resultLabel: 'POW:', resultAnswer: energyCalculationModel.powerResult),
+                        ResultCard(
+                          resultLabel: 'ENE:',
+                          resultAnswer: energyCalculationModel.energyResult,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'ENE:',
-                            resultAnswer: meterModel.energyResult,
-                          ),
+                        ResultCard(
+                          resultLabel: 'LOR:',
+                          resultAnswer: energyCalculationModel.lorResult,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'LOR:',
-                            resultAnswer: meterModel.lorResult,
-                          ),
+                        ResultCard(
+                          resultLabel: 'Rec cost:',
+                          resultAnswer: energyCalculationModel.recCostResult,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'ADM:',
-                            resultAnswer: meterModel.admResult,
-                          ),
-                        ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'TOT:',
-                            resultAnswer: meterModel.totalResult,
-                          ),
+                        ResultCard(
+                          resultLabel: 'TOT:',
+                          resultAnswer: energyCalculationModel.totalResult,
                         ),
                       ],
                     ),

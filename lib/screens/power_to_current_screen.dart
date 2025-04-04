@@ -6,6 +6,8 @@ import 'package:energy_loss_calculator/palette.dart';
 import 'package:energy_loss_calculator/reusable_textfield.dart';
 import 'package:flutter/material.dart';
 
+import '../model/calc_model.dart';
+
 
 class PowerToCurrentScreen extends StatefulWidget {
   static const String id = 'power_to_current_screen';
@@ -18,75 +20,16 @@ class PowerToCurrentScreen extends StatefulWidget {
 }
 
 class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
-
-  //DECLARING VARIABLES
-  TextEditingController currentController = TextEditingController();
-  TextEditingController voltageController = TextEditingController();
-  TextEditingController availabilityController = TextEditingController();
-  TextEditingController tariffController = TextEditingController();
-  TextEditingController noOfMonthsController = TextEditingController();
-  TextEditingController meterTypeController = TextEditingController();
-  TextEditingController powerController = TextEditingController();
-  String lorResult = '0';
-  String energyResult = '0';
-  String powerResult = '0';
-  String admResult = '0';
-  String totalResult = '0';
-  String powerKiloResult = '0';
-  String currentResult ='0';
-  final vat = 1.075;
-  final pf = 0.85;
-  final kilo = 1000;
-  final df = 0.6;
-
-  //This is the function that does the calculation when called.
-  calculate(){
-    //THIS CALCULATE THE POWER
-    double voltagePf = double.parse(
-          voltageController.text) * pf;
-
-    double current = double.parse(powerController.text) /
-          voltagePf;
-    double powerKilo = double.parse(
-          powerController.text) / kilo;
-
-    // THIS CALCULATE THE LOSS OF REVENUE
-    powerKiloResult = powerKilo.toStringAsFixed(2);
-    currentResult = current.toStringAsFixed(2);
-  }
+  final energyCalculationModel = MeterCalculationModel();
 
 
-  //THIS RESET THE INPUT FIELDS TO NULL AND THE RESULTS TO ZERO
-  reset(){
-      voltageController.text = '';
-      currentController.text = '';
-      availabilityController.text = '';
-      tariffController.text = '';
-      noOfMonthsController.text = '';
-      meterTypeController.text = '';
-      powerController.text = '';
-      powerResult = '0';
-      energyResult = '0';
-      lorResult = '0';
-      admResult = '0';
-      totalResult = '0';
-      currentResult = '0';
-      powerKiloResult = '0';
-  }
-
-  @override
-  void initState() {
-    voltageController= TextEditingController();
-    powerController = TextEditingController();
-    super.initState();
-  }
 
   @override
   void dispose() {
-    voltageController.dispose();
-    powerController.dispose();
+    energyCalculationModel.dispose();
     super.dispose();
   }
+
 
 
 
@@ -128,42 +71,26 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                     shrinkWrap: true,
                     physics: const AlwaysScrollableScrollPhysics(),
                     children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text(
-                          'POWER(Watts)',
-                          style: textStyle,
-                        ),
+                      const Text(
+                        'POWER(Watts)',
+                        style: textStyle,
                       ),
-                      Expanded(
-                        flex: 1,
-                        child:
-                        //TEXTFIED PROPS. & STYLING
-                        ReusableTextField(
-                          kontroller:  powerController,
-                          labText: 'power',
-                          hintTex: 'Enter the power value in Watts',
-                        ),
+                      ReusableTextField(
+                        kontroller:  energyCalculationModel.powerController,
+                        labText: 'power',
+                        hintTex: 'Enter the power value in Watts',
                       ),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      const Expanded(
-                        flex: 1,
-                        child: Text(
-                          'VOLTAGE(Volts)',
-                          style: textStyle,
-                        ),
+                      const Text(
+                        'VOLTAGE(Volts)',
+                        style: textStyle,
                       ),
-                      Expanded(
-                        flex: 1,
-                        child:
-                        //ANOTHER TEXTFIELD
-                        ReusableTextField(
-                          kontroller: voltageController,
-                          labText: 'Voltage',
-                          hintTex: 'Enter 240 for voltage value',
-                        ),
+                      ReusableTextField(
+                        kontroller: energyCalculationModel.voltageController,
+                        labText: 'Voltage',
+                        hintTex: 'Enter 240 for voltage value',
                       ),
 
                       const SizedBox(
@@ -182,7 +109,7 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                                   //THIS ENSURES THAT WHEN THE "CALCULATE BUTTON" IS CLICKED,
                                   // THE SOFT KEYBOARD DISAPPEARS
                                   FocusManager.instance.primaryFocus?.unfocus();
-                                  calculate();
+                                  energyCalculationModel.convertPowerToCurrent();
                                 });
                               },),
                           ),
@@ -191,36 +118,27 @@ class _PowerToCurrentScreenState extends State<PowerToCurrentScreen> {
                             height: 10.0,
                           ),
 
-                          Expanded(
-                            child:
-
-                            //TO CLEAR THE  INPUT FIELDS AND RESULTS
-                            CalcResetBttn(
-                              btnText: 'RESET',
-                              onPressedbtn:  () {
-                                setState(() {
-                                  reset();
-                                });
-                              },),
-                          ),
+                          CalcResetBttn(
+                            btnText: 'RESET',
+                            onPressedbtn:  () {
+                              setState(() {
+                                energyCalculationModel.reset();
+                              });
+                            },),
                         ],
                       ),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Expanded(
-                        child:  ResultCard(
-                            resultLabel:'POWER(KW):',
-                            resultAnswer: powerKiloResult),
-                      ),
+                      ResultCard(
+                          resultLabel:'POWER(KW):',
+                          resultAnswer: energyCalculationModel.powerKwResult),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Expanded(
-                        child:  ResultCard(
-                            resultLabel:'CURRENT(A):',
-                            resultAnswer: currentResult),
-                      ),
+                      ResultCard(
+                          resultLabel:'CURRENT(A):',
+                          resultAnswer: energyCalculationModel.currentResult),
 
                     ],
                   ),

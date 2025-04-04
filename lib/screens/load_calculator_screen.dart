@@ -14,7 +14,7 @@ class LoadCalculatorScreen extends StatefulWidget {
 }
 
 class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
-  final meterModel = MeterCalculationModel();
+  final energyCalculationModel = MeterCalculationModel();
 
 
   //List<Appliance> appliances = [];
@@ -24,15 +24,11 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
 
 
 
-  @override
-  void initState() {
-    meterModel.initState();
-    super.initState();
-  }
+
 
   @override
   void dispose() {
-    meterModel.dispose();
+    energyCalculationModel.dispose();
     super.dispose();
   }
 
@@ -166,7 +162,9 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    meterModel.calculateTotalWattage(); // Update total wattage dynamically
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    energyCalculationModel.calculateTotalWattage(); // Update total wattage dynamically
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -178,11 +176,11 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
         actions: [
 
          InkWell(
-           child: const Padding(
-           padding: EdgeInsets.all(8.0),
+           child:  Padding(
+           padding: const EdgeInsets.all(8.0),
            child: Text('Add new', style: TextStyle(
              fontSize: 14.0,
-             color: Color(0xFFA5672B),
+             color: isDarkMode ? Colors.white : const Color(0xFFA5672B),
            ),),
          ),
            onTap: addAppliance,
@@ -216,6 +214,15 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                         return Card(color: const Color(0xFFA5672B,),
                           child: ListTile(
                             leading: Checkbox(
+                              checkColor: isDarkMode ? Colors.brown : Colors.white, // Color of the check mark
+                              fillColor: MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.selected)) {
+                                    return isDarkMode ? Colors.white : Colors.brown; // Filled color when checked
+                                  }
+                                  return isDarkMode ? Colors.brown : Colors.white; // Filled color when unchecked
+                                },
+                              ),
                               value: appliance.selected,
                               onChanged: (value) {
                                 setState(() {
@@ -223,10 +230,12 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                 });
                               },
                             ),
-                            title: Text(appliance.name!),
-                            subtitle: Text("Wattage: ${appliance.wattage} W | Quantity: ${appliance.quantity}"),
+
+                            title: Text(appliance.name!,style: TextStyle(color: isDarkMode ? Colors.white : Colors.white,),),
+                            subtitle: Text("Wattage: ${appliance.wattage} W | Quantity: ${appliance.quantity}"
+                              ,style: TextStyle(color: isDarkMode ? Colors.white : Colors.white,),),
                             trailing: IconButton(
-                              icon: const Icon(Icons.edit),
+                              icon:  Icon(Icons.edit,color: isDarkMode ? Colors.white : Colors.white,),
                               onPressed: () {
                                 editApplianceQuantity(index);
                               },
@@ -267,22 +276,22 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                             TextField(
                               decoration:  const InputDecoration(labelText: "Power Availability (Hrs/Month)", ),
                               keyboardType: TextInputType.number,
-                              controller: meterModel.availabilityController,
+                              controller: energyCalculationModel.availabilityController,
                             ),
                             TextField(
                               decoration: const InputDecoration(labelText: "Tariff (per kWh)"),
                               keyboardType: TextInputType.number,
-                              controller: meterModel.tariffController,
+                              controller: energyCalculationModel.tariffController,
                             ),
                             TextField(
                               decoration: const InputDecoration(labelText: "Diversity Factor(not less than 0.6)"),
                               keyboardType: TextInputType.number,
-                              controller: meterModel.diversityController,
+                              controller: energyCalculationModel.diversityController,
                             ),
                             TextField(
                               decoration: const InputDecoration(labelText: "Duration (Month)"),
                               keyboardType: TextInputType.number,
-                              controller: meterModel.noOfMonthsController,
+                              controller: energyCalculationModel.noOfMonthsController,
                             ),
                             const SizedBox(height: 10),
                             ElevatedButton(
@@ -290,10 +299,10 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                               onPressed: () {
 
                                 if
-                                (meterModel.availabilityController.text.isEmpty ||
-                                    meterModel.tariffController.text.isEmpty ||
-                                    meterModel.diversityController.text.isEmpty ||
-                                    meterModel.noOfMonthsController.text.isEmpty) {
+                                (energyCalculationModel.availabilityController.text.isEmpty ||
+                                    energyCalculationModel.tariffController.text.isEmpty ||
+                                    energyCalculationModel.diversityController.text.isEmpty ||
+                                    energyCalculationModel.noOfMonthsController.text.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text("All fields must be filled!")),
                                   );
@@ -301,10 +310,10 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                 }
 
                                 try {
-                                  var avail = double.parse(meterModel.availabilityController.text);
-                                  var tariff = double.parse(meterModel.tariffController.text);
-                                  var diversity = double.parse(meterModel.diversityController.text);
-                                  var month = double.parse(meterModel.noOfMonthsController.text);
+                                  var avail = double.parse(energyCalculationModel.availabilityController.text);
+                                  var tariff = double.parse(energyCalculationModel.tariffController.text);
+                                  var diversity = double.parse(energyCalculationModel.diversityController.text);
+                                  var month = double.parse(energyCalculationModel.noOfMonthsController.text);
 
                                   if (avail <= 0 || tariff <= 0 || diversity <= 0 || month <= 0) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -314,7 +323,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                                   }
 
                                   setState(() {
-                                    energyCost = (meterModel.totalWattage / 1000) *
+                                    energyCost = (energyCalculationModel.totalWattage / 1000) *
                                         avail *
                                         tariff *
                                         diversity *
@@ -345,7 +354,7 @@ class _LoadCalculatorScreenState extends State<LoadCalculatorScreen> {
                               padding: const EdgeInsets.all(16),
                               color:const Color(0xFFA5672B,),
                               child: Text(
-                                "Total Wattage: ${meterModel.totalWattage.toStringAsFixed(2)} W",
+                                "Total Wattage: ${energyCalculationModel.totalWattage.toStringAsFixed(2)} W",
                                 style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),

@@ -15,7 +15,7 @@ class CalcResetBttn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(EnergylossCalculator.themeNotifier.value == ThemeMode.light) {
+    if(Theme.of(context).brightness == Brightness.light) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 5,
@@ -28,8 +28,8 @@ class CalcResetBttn extends StatelessWidget {
         ),
 
         child: Text(
-          btnText,
-          style: TextStyle(fontSize: 20.0),
+         btnText,
+          style: const TextStyle(fontSize: 20.0,color: Colors.white),
         ),
         onPressed: () {
           onPressedbtn();
@@ -48,9 +48,9 @@ class CalcResetBttn extends StatelessWidget {
           backgroundColor: const Color(0xFFA5672B),
         ),
 
-        child: Text(
+         child: Text(
           btnText,
-          style: TextStyle(fontSize: 20.0),
+          style: const TextStyle(fontSize: 20.0, color: Colors.white),
         ),
         onPressed: () {
           onPressedbtn();

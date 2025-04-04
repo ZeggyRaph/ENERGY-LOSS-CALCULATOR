@@ -16,17 +16,13 @@ class NegativeKwh extends StatefulWidget {
 }
 
 class _NegativeKwhState extends State<NegativeKwh> {
-  final meterModel = MeterCalculationModel();
+  final energyCalculationModel = MeterCalculationModel();
 
-  @override
-  void initState() {
-    meterModel.initState();
-    super.initState();
-  }
+
 
   @override
   void dispose() {
-    meterModel.dispose();
+    energyCalculationModel.dispose();
     super.dispose();
   }
 
@@ -63,63 +59,39 @@ class _NegativeKwhState extends State<NegativeKwh> {
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'NEGATIVE VALUE(KWH)',
-                            style: textStyle,
-                          ),
+                        Text(
+                          'NEGATIVE VALUE(KWH)',
+                          style: textStyle,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //TEXTFIED PROPS. & STYLING
-                              ReusableTextField(
-                            kontroller: meterModel.negativeKwhController,
-                            labText: 'negative_kwh',
-                            hintTex: 'Enter the kwh value without minus sign',
-                          ),
-                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.negativeKwhController,
+                                                    labText: 'negative_kwh',
+                                                    hintTex: 'Enter the kwh value without minus sign',
+                                                  ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'TARIFF(#)',
-                            style: textStyle,
-                          ),
+                        Text(
+                          'TARIFF(#)',
+                          style: textStyle,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.tariffController,
-                            labText: 'Tariff',
-                            hintTex: 'Enter tariff',
-                          ),
-                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.tariffController,
+                                                    labText: 'Tariff',
+                                                    hintTex: 'Enter tariff',
+                                                  ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        const Expanded(
-                          flex: 1,
-                          child: Text(
-                            'METER-TYPE',
-                            style: textStyle,
-                          ),
+                        Text(
+                          'METER-TYPE',
+                          style: textStyle,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child:
-                              //ANOTHER TEXTFIELD
-                              ReusableTextField(
-                            kontroller: meterModel.meterTypeController,
-                            labText: 'No. of phases',
-                            hintTex: 'Enter 1 or 3',
-                          ),
-                        ),
+                        ReusableTextField(
+                                                    kontroller: energyCalculationModel.meterTypeController,
+                                                    labText: 'No. of phases',
+                                                    hintTex: 'Enter 1 or 3',
+                                                  ),
                         const SizedBox(
                           height: 10.0,
                         ),
@@ -132,12 +104,10 @@ class _NegativeKwhState extends State<NegativeKwh> {
                                 btnText: 'CALCULATE',
                                 onPressedbtn: () {
                                   setState(() {
-                                    //THIS ENSURES THAT WHEN THE "CALCULATE BUTTON" IS CLICKED,
-                                    // THE SOFT KEYBOARD DISAPPEARS
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                    meterModel.calculateNegativeKwh();
+                                    energyCalculationModel.calculateNegativeKwh(
+                                    );
                                   });
+
                                 },
                               ),
                             ),
@@ -153,7 +123,7 @@ class _NegativeKwhState extends State<NegativeKwh> {
                                 btnText: 'RESET',
                                 onPressedbtn: () {
                                   setState(() {
-                                    meterModel.reset();
+                                    energyCalculationModel.reset();
                                   });
                                 },
                               ),
@@ -163,23 +133,17 @@ class _NegativeKwhState extends State<NegativeKwh> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'LOR:',
-                            resultAnswer: meterModel.lorResult,
-                          ),
+                        ResultCard(
+                          resultLabel: 'LOR:',
+                          resultAnswer: energyCalculationModel.lorResult,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'ADM:',
-                            resultAnswer: meterModel.admResult,
-                          ),
+                        ResultCard(
+                          resultLabel: 'Rec cost:',
+                          resultAnswer: energyCalculationModel.recCostResult,
                         ),
-                        Expanded(
-                          child: ResultCard(
-                            resultLabel: 'TOT:',
-                            resultAnswer: meterModel.totalResult,
-                          ),
+                        ResultCard(
+                          resultLabel: 'TOT:',
+                          resultAnswer: energyCalculationModel.totalResult,
                         ),
                       ],
                     ),
